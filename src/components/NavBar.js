@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import logo from "../assets/logo.png";
+import logo from "../assets/pharma.manger2.0.png";
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 
 const refresh = () => {
@@ -12,15 +12,11 @@ export default function NavBar() {
     const monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
     return (
-        <Router>
             <Nav>
-                <SidePart> 
+                <SidePart>  
+                    <Link onClick={() => {setTimeout(refresh, 10)}} style={{textDecoration: 'none', color: 'white'}} to='/'>
                     <Logo src={logo} alt = 'pharmacy logo'/>
-                    <LogoText>
-                        <Link onClick={() => {setTimeout(refresh, 100)}} style={{textDecoration: 'none', color: 'white'}} to='/'>
-                            Pharma One
-                        </Link>
-                    </LogoText>
+                    </Link>
                 </SidePart>
                 <MainPart>
                     <Salut>
@@ -29,21 +25,20 @@ export default function NavBar() {
                     </Salut>
                 </MainPart>
             </Nav>
-        </Router>
     )
 }
 
 const Time = styled.p`
     font-weight: 400;
     font-size: 14px;
-    color: #1D242E;
+    color: #F7FAFD;
     margin: 0;
 `;
 
 const Morning = styled.p`
     font-weight: 500;
     font-size: 16px;
-    color: #1D242E;
+    color: #F7FAFD;
     margin: 0;
 `;
 
@@ -69,8 +64,8 @@ const Nav = styled.nav`
 
 const SidePart = styled.div`
     width: 20%;
-    background-color: #1D242E;
-    height: 100%;
+    background-color: #F7FAFD;
+    height: 100%;  
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,7 +74,7 @@ const SidePart = styled.div`
 
 const MainPart = styled.div`
     width: 80%;
-    background-color: #F7FAFD;
+    background-color: #1D242E;
     height: 100%;
     display: flex;
     align-items: center;
@@ -87,13 +82,7 @@ const MainPart = styled.div`
 `;
 
 const Logo = styled.img`
-    height: 42px;
-    width: 42px;
+    height: 60px;
+    width: auto;
 `;
 
-const LogoText = styled.h1`
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
-    margin-left: 20px;
-`;

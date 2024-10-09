@@ -6,8 +6,7 @@ import Repo from '../assets/Repo.png';
 import Confi from '../assets/confi.png';
 
 import { 
-    Link,
-    BrowserRouter as Router,
+    Link
 } from 'react-router-dom';
 
 const refresh = () => {
@@ -19,7 +18,7 @@ export default function SideBar() {
     const [clicked, setClicked] = useState(currentPath ||'dashboard');
     return (
         <Container>
-            <Router>
+            
                 <Link onClick={() => {setTimeout(refresh, 100)}} style={{textDecoration: 'none'}} to='/dashboard'>
                     <SideSelect 
                         style={{backgroundColor: clicked === 'dashboard' && '#009099'}} 
@@ -65,7 +64,6 @@ export default function SideBar() {
                         Copyright © 2022 TAIB Youssef.
                     </SideText>
                 </Footer>
-            </Router>
         </Container>
     )
 }

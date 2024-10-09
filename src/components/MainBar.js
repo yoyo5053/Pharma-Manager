@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
-    BrowserRouter as Router, 
     Routes, 
-    Route
+    Route,
+    useNavigate
 } from "react-router-dom";
 import Dashboard from './Dashboard';
 import Inventory from './Inventory';
 import Reports from './Reports';
 import Configuration from './Configuration';
+import Login from './login/Login';
+import Register from './register/Register';
+import HomePage from './homepage/HomePage';
+import { AuthContext } from '../AuthContext/AuthContext';
+import PrivateRoute from './PrivateRoute';
 
 export default function MainBar() {
+    const { currentUser } = useContext(AuthContext); 
+   
     return(
         <Container>
-            <Router>
-                <Routes>
-                    <Route exact path='/' element={<Dashboard/>}/>
-                    <Route  path="/dashboard"   element={<Dashboard/>} />
-                    <Route  path="/inventory" element={<Inventory/>} />
-                    <Route  path="/reports" element={<Reports/>} />
-                    <Route  path="/configuration" element={<Configuration/>} />
+                <Routes>                                      
+                    <Route path="/dashboard" element={currentUser ? <Dashboard /> : <PrivateRoute />} />
+                    <Route path="/inventory" element={currentUser ? <Inventory /> : <PrivateRoute />} />
+                    <Route path="/reports" element={currentUser ? <Reports /> : <PrivateRoute />} />
+                    <Route path="/configuration" element={currentUser ? <Configuration /> : <PrivateRoute />} />
+
+                    <Route exact path='/' element={<HomePage/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/register" element={<Register/>}/>
+                    
                 </Routes>
-            </Router>
         </Container>
     );
 }

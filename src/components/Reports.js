@@ -1,17 +1,47 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import SectionTitle from './subComponents/SectionTitle';
 import axios from 'axios';
 import Sell from './subComponents/Sell';
+import { DNA } from 'react-loader-spinner';
+import { AuthContext } from '../AuthContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Reports() {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+    const { currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/login'); 
+        }
+    }, [currentUser, navigate]);
+
     useEffect(() => {
         axios.get('https://pharmacy-api-bice.vercel.app/api/sold')
         .then(res => {
             setData(res.data);
+            setLoading(false);
         })
     }, [])
+
+    if (loading) {
+        return (
+            <SpinnerWrapper>
+                <DNA
+                    visible={true}
+                    height="220" 
+                    width="220"  
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                />
+            </SpinnerWrapper>
+        );
+    }
     return (
         <Container>
             <SectionTitle title='Reports' info='Infos about selling products and revunue' />
@@ -78,4 +108,13 @@ const SellInfo = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid black;
+`;
+
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  // Prend toute la hauteur de son parent (ex: MainBar)
+    width: 100%;   // Prend toute la largeur de son parent
+    min-height: 300px; // Assure une hauteur minimale pour garantir le centrage
 `;

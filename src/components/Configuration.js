@@ -1,7 +1,10 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import SectionTitle from './subComponents/SectionTitle';
+import { DNA } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext/AuthContext';
 
 const refresh = () => {
     window.location.refresh();
@@ -18,11 +21,23 @@ export default function Configuration() {
     const [show, setShow] = useState(false);
     const [data, setData] = useState([]);
     const [secondShow, setSecondShow] = useState(false)
+    const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
+
+    const { currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/login'); 
+        }
+    }, [currentUser, navigate]);
 
     useEffect(() => {   
         axios.get('https://pharmacy-api-bice.vercel.app/api/categories')
         .then(res => {
             setData(res.data);
+            setLoading(false);
         })
     }, [])
 
@@ -77,6 +92,20 @@ export default function Configuration() {
         setQuantity('')
         setChoose('')
         setTimeout(refresh(), 100);
+    }
+    if (loading) {
+        return (
+            <SpinnerWrapper>
+                <DNA
+                    visible={true}
+                    height="220" 
+                    width="220"  
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                />
+            </SpinnerWrapper>
+        );
     }
 
     if (correct) {
@@ -320,4 +349,13 @@ const FirstPart = styled.div`
 const SecondPart = styled.div`
     width: 60%;
     height: 100%;
+`;
+
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  // Prend toute la hauteur de son parent (ex: MainBar)
+    width: 100%;   // Prend toute la largeur de son parent
+    min-height: 300px; // Assure une hauteur minimale pour garantir le centrage
 `;

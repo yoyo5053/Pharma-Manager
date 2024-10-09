@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
+import { DNA } from 'react-loader-spinner'
 import DashInfo from './subComponents/DashInfo';
 import SectionTitle from './subComponents/SectionTitle';
 import RectInfo from './subComponents/RectInfo';
@@ -11,16 +12,31 @@ import health from '../assets/health.png';
 
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext/AuthContext';
 
 export default function Dashboard() {
+    console.log('Dashboard component mounted');
     const [drugs, setDrugs] = useState([]);
     const [categories, setCategories] = useState([]);
     const [sold, setSold] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
+    const { currentUser } = useContext(AuthContext);
+    console.log("Current User: ", currentUser);
+    useEffect(() => {
+        console.log("Current User: ", currentUser);
+        if (!currentUser) {
+            console.log("Redirecting to login");
+            navigate('/login'); 
+        }
+    }, [currentUser, navigate]);
     useEffect(() => {
         axios.get('https://pharmacy-api-bice.vercel.app/api/categories')
         .then(res => {
             setCategories(res.data);
+            setLoading(false);
         })
 
         axios.get('https://pharmacy-api-bice.vercel.app/api/drug')
@@ -52,6 +68,22 @@ export default function Dashboard() {
         quantity += sold[i].quantity;
         total += sold[i].price;
     }
+
+    if (loading) {
+        return (
+            <SpinnerWrapper>
+                <DNA
+                    visible={true}
+                    height="220" 
+                    width="220"  
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                />
+            </SpinnerWrapper>
+        );
+    }
+    
 
     return (
         <Container>
@@ -151,3 +183,15 @@ const Wrapper = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
 `;
+
+
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  // Prend toute la hauteur de son parent (ex: MainBar)
+    width: 100%;   // Prend toute la largeur de son parent
+    min-height: 300px; // Assure une hauteur minimale pour garantir le centrage
+`;
+
+

@@ -3,11 +3,8 @@ body {
   padding: 0;
   left: 0;
   height: 0;
-  font-family: 'Poppins';
-  font-style: normal;
+  font-family: "Lato", sans-serif !important;
+  overflow: hidden;
 }
 
-code {
-  font-family: 'Poppins';
-  font-style: normal;
-}
+

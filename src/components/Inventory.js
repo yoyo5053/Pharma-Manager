@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import SectionTitle from './subComponents/SectionTitle';
 import Drug from './subComponents/Drug';
 import Search from '../assets/Search.png';
+import { DNA } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext/AuthContext';
 
 export default function Inventory() {
     const [data, setData] = useState([]);
@@ -11,6 +14,16 @@ export default function Inventory() {
     const [selected, setSelected] = useState('All Categories');
     const [categories, setCategories] = useState([]);
     const [searchMed, setMed] = useState('');
+
+    const navigate = useNavigate();
+
+    const { currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/login'); 
+        }
+    }, [currentUser, navigate]);
 
     useEffect(() => {
         axios.get('https://pharmacy-api-bice.vercel.app/api/categories')
@@ -45,6 +58,22 @@ export default function Inventory() {
             setLoading(false);
         })
     }, [selected, searchMed]);
+
+    
+    if (loading) {
+        return (
+            <SpinnerWrapper>
+                <DNA
+                    visible={true}
+                    height="220" 
+                    width="220"  
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                />
+            </SpinnerWrapper>
+        );
+    }
 
     return (
         <Container>
@@ -234,4 +263,13 @@ const Price = styled.p`
 const SellItem = styled.form`
     width: calc(100% / 5);
     text-align: center;
+`;
+
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  // Prend toute la hauteur de son parent (ex: MainBar)
+    width: 100%;   // Prend toute la largeur de son parent
+    min-height: 300px; // Assure une hauteur minimale pour garantir le centrage
 `;
