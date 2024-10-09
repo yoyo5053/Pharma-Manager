@@ -44,13 +44,13 @@ export default function Reports() {
     }
     return (
         <Container>
-            <SectionTitle title='Reports' info='Infos about selling products and revunue' />
+            <SectionTitle title='Rapports' info=' Informations sur les produits vendus et les revenus' />
             <SellInfo>
                 <InfoBlock>
-                    Name
+                    Nom
                 </InfoBlock>
                 <InfoBlock>
-                    Quantity
+                    Quantité
                 </InfoBlock>
                 <InfoBlock>
                     Total

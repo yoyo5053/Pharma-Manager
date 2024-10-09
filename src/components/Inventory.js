@@ -79,8 +79,8 @@ export default function Inventory() {
         <Container>
             <FirstPart>
                 <SectionTitle 
-                    title = 'Inventory'
-                    info = 'List of medicines available for sales.'
+                    title = 'Inventaire'
+                    info = 'Liste des médicaments disponibles à la vente.'
                 />
                 <SearchingArea>
                     <Label>
@@ -88,12 +88,12 @@ export default function Inventory() {
                             type='text'
                             value={searchMed}
                             onChange={(e) => {setMed(e.target.value)}}
-                            placeholder='Search Medicine Inventory..'
+                            placeholder="Rechercher dans l'inventaire des médicaments.."
                         />
                         <SearchImg src={Search} alt='search button'/>
                     </Label>
                     <CategoryChoose value={selected} onChange={(e) => setSelected(e.target.value)}>
-                        <Option value='All Categories'>All categories</Option>
+                        <Option value='Toutes les catégories'>All categories</Option>
                         {
                             categories.map(cate => {
                                 return <Option 
@@ -112,24 +112,24 @@ export default function Inventory() {
             <SecondPart>
                 <InfoSecond>
                     <DrugName>
-                        Medicine Name
+                    Nom du médicament
                     </DrugName>
                     <Quantity>
-                        Stock in Qty
+                    Stock en quantité
                     </Quantity>
                     <CategoryName>
-                        Category Name
+                    Nom de la catégorie
                     </CategoryName>
                     <Price>
-                        Selling Price
+                    Prix de vente
                     </Price>
                     <SellItem>
-                        Sell Medicine
+                    Vendre un médicament
                     </SellItem>
                 </InfoSecond>
                 {
                     loading 
-                    ? <p>loading...</p> 
+                    ? <p>Chargement...</p> 
                     : data.map(drug => {
                         return <Drug  
                             name = {drug.drug_name}

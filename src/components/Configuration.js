@@ -112,37 +112,37 @@ export default function Configuration() {
     return (    
         <Container>
             <FirstPart>
-                <SectionTitle title = 'Add New Category'/>
+                <SectionTitle title = 'Ajouter une nouvelle catégorie'/>
                 <Form onSubmit={handleSubmit}>
                     <TitleLabel>
-                        Name:
+                        Nom:
                     </TitleLabel>
                     <TitleForm 
                         type='text'
-                        placeholder='Category name...'
+                        placeholder='Nom de la catégorie...'
                         onChange={(e) => {setCategory(e.target.value)}}
                         value={category}
                         required
                     />
                     <Submit>
-                        SUBMIT
+                    SOUMETTRE
                     </Submit>
                     {
                         show &&
-                        <Sucess>Category Added !</Sucess>
+                        <Sucess>Catégorie ajoutée !</Sucess>
                     }
                 </Form>
             </FirstPart>
             <SecondPart>
-                <SectionTitle title = 'Add New Medicine'/>
+                <SectionTitle title = 'Ajouter un nouveau médicament'/>
                 <FormMed style={{marginLeft: 0, display: 'flex'}} onSubmit={handleSecond}>
                     <SubContainer>
                         <TitleLabel>
-                            Name:
+                            Nom:
                         </TitleLabel>
                         <TitleForm
                             type='text'
-                            placeholder='Category name...'
+                            placeholder='Nom de la catégorie...'
                             onChange={(e) => {setMedicine(e.target.value)}}
                             value={medicine}
                             required
@@ -150,12 +150,12 @@ export default function Configuration() {
                     </SubContainer>
                     <SubContainer>
                         <TitleLabel>
-                            Price:
+                            Prix:
                         </TitleLabel>
                         <TitleForm
                             min='1'  
                             type='number'
-                            placeholder='Price value (min 1)'
+                            placeholder='Valeur du prix (min 1)'
                             onChange={(e) => {setPrice(e.target.value)}}
                             value={price}
                             required
@@ -163,13 +163,13 @@ export default function Configuration() {
                     </SubContainer>
                     <SubContainer>
                         <TitleLabel>
-                            Quantity:
+                        Quantité:
                         </TitleLabel>
                         <TitleForm
                             min='1' 
                             max='999'
                             type='number'
-                            placeholder='Stock Qty (1- 999)'
+                            placeholder='Quantité en stock (1-999)'
                             onChange={(e) => {setQuantity(e.target.value)}}
                             value={quantity}
                             required
@@ -177,7 +177,7 @@ export default function Configuration() {
                     </SubContainer>
                     <SubContainer>
                         <TitleLabel>
-                            Category:
+                        Catégorie:
                         </TitleLabel>
                         {
                             data.map(category => {
@@ -186,7 +186,7 @@ export default function Configuration() {
                                         <Radio 
                                             onChange={(e) => {setChoose(e.target.value)}}
                                             type='radio'
-                                            name='category'
+                                            name='Catégorie'
                                             value={category.category_name}
                                             required
                                         />
@@ -201,11 +201,11 @@ export default function Configuration() {
                         }
                     </SubContainer>
                     <Submit>
-                        SUBMIT
+                    SOUMETTRE
                     </Submit>
                     {
                         secondShow &&
-                        <Sucess>Category Added !</Sucess>
+                        <Sucess>Catégorie ajoutée !</Sucess>
                     }
                 </FormMed>
             </SecondPart>
@@ -217,17 +217,17 @@ export default function Configuration() {
                 <SectionTitle title='Admin Panel' info='Write your password please.'/>
                 <Form onSubmit={handlePass}>
                     <TitleLabel>
-                        Password
+                    Mot de passe
                     </TitleLabel>
                     <TitleForm 
                         type='password'
                         value={password}
-                        placeholder='Password goes here..'
+                        placeholder='Mot de passe ici...'
                         onChange={(e) => {setPassword(e.target.value)}}
                         required
                     />
                     <Submit>
-                        OPEN
+                        OUVRIR
                     </Submit>
                 </Form>
             </Container>

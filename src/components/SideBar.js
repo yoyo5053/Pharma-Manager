@@ -25,7 +25,7 @@ export default function SideBar() {
                         onClick={() => {setClicked('dashboard')}}>
                         <SideImg alt='Dashboard' src={Dash}/>
                         <SideText>
-                            Dashboard
+                        Tableau de bord
                         </SideText>
                     </SideSelect>
                 </Link>
@@ -35,7 +35,7 @@ export default function SideBar() {
                         onClick={() => {setClicked('inventory')}}>
                         <SideImg alt='Inventory' src={Inve}/>
                         <SideText>
-                            Inventory
+                        Inventaire
                         </SideText>
                     </SideSelect>
                 </Link>
@@ -45,7 +45,7 @@ export default function SideBar() {
                         onClick={() => {setClicked('reports')}}>
                         <SideImg style={{height: '8px'}} alt='Reports' src={Repo}/>
                         <SideText>
-                            Reports
+                        Rapports
                         </SideText>
                     </SideSelect>
                 </Link>

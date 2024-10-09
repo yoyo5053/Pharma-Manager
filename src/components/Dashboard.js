@@ -89,60 +89,60 @@ export default function Dashboard() {
         <Container>
             <FirstPart>
                 <SectionTitle 
-                    title = 'Dashboard' 
-                    info = 'A quick data overview of the inventory.'
+                    title = 'Tableau de bord' 
+                    info = "Un aperçu rapide des données de l'inventaire."
                 />
                 <DashInfos>
                     <DashInfo 
                         borderColor = 'green' 
                         imgSrc={health} 
-                        title='Good' 
-                        info = 'Inventory Status' 
+                        title='Bon' 
+                        info = "État de l'inventaire" 
                     />
                     <DashInfo 
                         borderColor = 'yellow' 
                         imgSrc={payments} 
                         title={`${total} $`} 
-                        info = 'Revenue' 
+                        info = 'Revenu' 
                     />
                     <DashInfo 
                         borderColor = 'blue' 
                         imgSrc={medical} 
                         title={drugs.length} 
-                        info = 'Medicines Available' 
+                        info = 'Médicaments disponibles' 
                     />
                     <DashInfo 
                         borderColor = 'red' 
                         imgSrc={warning} 
                         title={shortage} 
-                        info = 'Medicine Shortage' 
+                        info = 'Pénurie de médicaments' 
                     />
                 </DashInfos>
             </FirstPart>
             <SecondPart>
                 <Wrapper>
                     <RectInfo 
-                        title = 'Inventory'
+                        title = 'Inventaire'
                         firstTitle = {allQuantity}
-                        firstPara = 'Total Qty of Medicines'
+                        firstPara = 'Quantité totale de médicaments'
                         secondTitle = {categories.length}
-                        secondPara = 'Medicines Categories'
+                        secondPara = 'Catégories de médicaments'
                     />
                     <RectInfo 
-                        title = 'Quick Report'
+                        title = 'Rapport rapide'
                         firstTitle = {quantity}
-                        firstPara = 'Qty of Medicines Sold'
+                        firstPara = 'Quantité de médicaments vendus'
                         secondTitle = {sold.length}
-                        secondPara = 'Number of sold Medicines'
+                        secondPara = 'Nombre de médicaments vendus'
                     />
                     <RectInfo 
-                        title = 'Last Transaction'
+                        title = 'Dernière transaction'
                         firstTitle = {
                             sold.length
                              && 
                              `${(sold[sold.length - 1].date.toString()).substring(0, 10)} at ${(sold[sold.length - 1].date.toString()).substring(12, 19)}`
                         }
-                        firstPara = 'Exact selling date'
+                        firstPara = 'Date exacte de la vente'
                     />
                 </Wrapper>
             </SecondPart>

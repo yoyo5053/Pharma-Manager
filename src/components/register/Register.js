@@ -1,6 +1,7 @@
 import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../AuthContext/AuthContext";
 
 const Register = () => {
     const [error, setError] = useState("");
@@ -30,18 +31,27 @@ const Register = () => {
             setIsLoading(false);
           }
     }*/
+          const { currentUser } = useContext(AuthContext);  // Accéder à l'utilisateur authentifié
+        
+          // Si l'utilisateur est déjà authentifié, on le redirige vers le dashboard
+          useEffect(() => {
+            if (currentUser) {
+              navigate('/dashboard');  // Redirection vers la page dashboard
+            }
+          }, [currentUser, navigate]);
+        
 
   return (
     <div className="registerPage">
     <div className="formContainer">
       <form>
-        <h1>Create an Account</h1>
+        <h1>Créer un compte</h1>
         <input name="username" type="text" placeholder="Username" />
         <input name="email" type="text" placeholder="Email" />
         <input name="password" type="password" placeholder="Password" />
-        <button disabled={isLoading}>Register</button>
+        <button disabled={isLoading}>S'inscrire</button>
         {error && <span>{error}</span>}
-        <Link to="/login">Do you have an account?</Link>
+        <Link to="/login">Vous avez déjà un compte ?</Link>
       </form>
     </div>
     <div className="imgContainer">

@@ -1,17 +1,19 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthContext/AuthContext";
+import axios from "axios";
 //import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  //const {updateUser} = useContext(AuthContext);
+  const {updateUser} = useContext(AuthContext);
 
 
   const navigate = useNavigate();
-  /*const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     
@@ -19,43 +21,56 @@ const Login = () => {
 
     const username = formData.get("username");
     const password = formData.get("password");
-
+    const publicKey = import.meta.env.VITE_REACT_APP_CHEC_PUBLIC_KEY;
+    console.log(publicKey); 
     try {
-      const res = await apiRequest.post("/auth/login", {
+      /*console.log(`${import.meta.env.VITE_REACT_APP_PUBLIC_KEY}`);
+       await axios.post(`${import.meta.env.VITE_REACT_APP_PUBLIC_KEY}` + `/login`, {
         username,
         password,
-      });
-      updateUser(res.data)
-      navigate("/");
+      }).then((res)=>{
+        updateUser(res.data)
+        navigate("/");
+      })*/
     } catch (err) {
-      setError(err.response.data.message);
+      setError(err);
     } finally {
       setIsLoading(false);
     }
-  };*/
+  };
+
+    const { currentUser } = useContext(AuthContext);  // Accéder à l'utilisateur authentifié
+
+    // Si l'utilisateur est déjà authentifié, on le redirige vers le dashboard
+    useEffect(() => {
+      if (currentUser) {
+        navigate('/dashboard');  // Redirection vers la page dashboard
+      }
+    }, [currentUser, navigate]);
+
 
   return (
   <div className="login">
     <div className="formContainer">
-      <form  > 
-        <h1>Welcome back</h1>
+      <form onSubmit={handleSubmit} > 
+        <h1>Bienvenue</h1>
         <input
           name="username"
           required
           minLength={3}
           maxLength={20}
           type="text"
-          placeholder="Username"
+          placeholder="Nom d'utilisateur"
         />
         <input
           name="password"
           type="password"
           required
-          placeholder="Password"
+          placeholder="Mot de passe"
         />
-        <button disabled={isLoading}>Login</button>
+        <button disabled={isLoading}>Se connecter</button>
         {error && <span>{error}</span>}
-        <Link to="/register">{"Don't"} you have an account?</Link>
+        <Link to="/register"> Vous n'avez pas de compte ?</Link>
       </form>
     </div>
     <div className="imgContainer">
