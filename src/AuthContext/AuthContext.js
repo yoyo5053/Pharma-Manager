@@ -10,6 +10,7 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user"); 
+    console.log({currentUser})
   };
 
   const updateUser = (data) => {

@@ -22,7 +22,6 @@ function App() {
 
 const MainContent = () => {
   const { currentUser } = useContext(AuthContext);
-  localStorage.removeItem("user");  
   const location = window.location.pathname; // Utilisation de la location pour détecter la page courante  
   return (
     <Main>

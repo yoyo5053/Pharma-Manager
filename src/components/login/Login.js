@@ -21,22 +21,30 @@ const Login = () => {
 
     const username = formData.get("username");
     const password = formData.get("password");
-    const publicKey = import.meta.env.VITE_REACT_APP_CHEC_PUBLIC_KEY;
-    console.log(publicKey); 
     try {
-      /*console.log(`${import.meta.env.VITE_REACT_APP_PUBLIC_KEY}`);
-       await axios.post(`${import.meta.env.VITE_REACT_APP_PUBLIC_KEY}` + `/login`, {
-        username,
-        password,
-      }).then((res)=>{
-        updateUser(res.data)
-        navigate("/");
-      })*/
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
+      const res = await axios.post("http://192.168.84.43:8080/login", {
+          username,
+          password
+      });
+      if (res.data.success) {
+          updateUser(res.data);  
+          console.log(res);
+          navigate("/");  
+      } else {
+          console.log(res.data.message);
+          setError(res.data.message);
+      }
+  } catch (err) {
+      console.error("Erreur serveur ou réseau", err);
+      if (err.response) {
+          setError(err.response.data.message || "Erreur inattendue");
+      } else {
+          setError("Erreur réseau. Veuillez vérifier votre connexion.");
+      }
+  } finally {
+      setIsLoading(false);  
+  }
+  
   };
 
     const { currentUser } = useContext(AuthContext);  // Accéder à l'utilisateur authentifié

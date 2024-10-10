@@ -9,7 +9,7 @@ const refresh = () => {
 }
 
 export default function NavBar() {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, logout } = useContext(AuthContext);
     const location = useLocation();
 
     return (
@@ -24,9 +24,10 @@ export default function NavBar() {
                     <div className="right">
                         {currentUser ? (
                             <div className="user">
-                                <StyledLink to="" className="deconnexion">
+                                <StyledLink to="" className="deconnexion" onClick={logout}>
                                     <span>Déconnexion</span>
                                 </StyledLink>
+                                
                             </div>
                         ) : ( location.pathname !== "/login" && 
                             <StyledLink className='deconnexion'>

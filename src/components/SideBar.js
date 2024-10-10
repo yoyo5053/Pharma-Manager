@@ -61,7 +61,7 @@ export default function SideBar() {
                 </Link>
                 <Footer>
                     <SideText>
-                        Copyright © 2022 TAIB Youssef.
+                        Copyright © 2024 PHARMANAGER.
                     </SideText>
                 </Footer>
         </Container>
